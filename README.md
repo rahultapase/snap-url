@@ -2,8 +2,6 @@
 
 A small, carefully made URL shortener. Paste a long link, get a short one, copy it, and find it again later.
 
-Vanilla TypeScript on Vite. No UI framework, no CSS framework, no runtime dependencies, no backend.
-
 ![Snip in light mode, with a fresh short link and five recent links](screenshots/app-light.png)
 
 ![Snip in dark mode, same view](screenshots/app-dark.png)
@@ -67,21 +65,3 @@ src/
   types.ts        Shared types
   styles.css      Design tokens and all styles
 ```
-
-## Design
-
-The visual direction is a print-shop ledger: warm paper, ink-black type, one vermilion accent and hairline rules. Instrument Serif is used for the wordmark and the single headline; IBM Plex Mono carries everything else. Each result is a tear-off ticket, and history is a numbered index.
-
-Every colour is an OKLCH custom property (`--bg`, `--surface`, `--ink`, `--accent`, and so on). Dark mode overrides only those tokens, so a component never needs its own theme rules. Motion stays between 150 and 250 ms with ease-out curves and turns off under reduced motion.
-
-User and API data are only ever set through `textContent`, and only `http:` or `https:` URLs are placed in `href` attributes.
-
-## Built with Cursor
-
-Snip was built with Cursor's Agent from a plain-English brief, guided by project Agent Skills:
-
-- **frontend-design** for the visual direction, typography and colour
-- **emil-design-eng** for interaction details and motion
-- **impeccable** for a final polish pass
-
-After the first build, iterations added the theme toggle, fixed a clipboard-fallback bug (a stale "Press Ctrl+C" hint and selection could survive a later copy), and tightened copy, labels and states.
