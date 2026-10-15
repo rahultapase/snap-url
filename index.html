@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Snip: paste a long URL, get a short link, copy it." />
+    <script>
+      (function () {
+        var mode = 'system';
+        try {
+          var stored = localStorage.getItem('snip:theme');
+          if (stored === 'light' || stored === 'dark' || stored === 'system') mode = stored;
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', mode);
+      })();
+    </script>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <title>Snip: a small link shortener</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <p class="wordmark"><span class="wordmark-name">Snip</span><span class="wordmark-tag">Link shortener</span></p>
+        <div class="masthead-end">
+          <button id="theme-toggle" class="button theme-toggle" type="button" aria-label="Theme: system">
+            <span class="theme-label" aria-hidden="true">System</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="compose" aria-labelledby="compose-title">
+          <h1 id="compose-title" class="display">Make a long link <em>short.</em></h1>
+
+          <form id="shorten-form" class="form" novalidate>
+            <label for="url-input" class="label">Long URL</label>
+            <div class="field">
+              <input
+                id="url-input"
+                name="url"
+                class="input"
+                type="text"
+                inputmode="url"
+                autocomplete="url"
+                autocapitalize="off"
+                autocorrect="off"
+                spellcheck="false"
+                placeholder="example.com/a/very/long/path?with=params"
+                aria-describedby="url-hint url-error"
+              />
+              <button id="shorten-button" class="button button-primary" type="submit">
+                <span class="button-spinner" aria-hidden="true"></span>
+                <span class="button-label">Shorten</span>
+              </button>
+            </div>
+            <p id="url-error" class="error" hidden></p>
+            <p id="url-hint" class="hint">No scheme needed; https:// is added for you.</p>
+          </form>
+
+          <div id="result" class="ticket" hidden></div>
+        </section>
+
+        <section class="ledger" aria-labelledby="history-title">
+          <div class="ledger-head">
+            <h2 id="history-title" class="ledger-title">Recent links</h2>
+            <p class="ledger-count" id="history-count" aria-hidden="true"></p>
+            <div class="ledger-actions" id="clear-area"></div>
+          </div>
+          <ol id="history-list" class="history" aria-labelledby="history-title"></ol>
+          <div id="history-empty" class="empty" hidden></div>
+        </section>
+      </main>
+
+      <footer class="colophon">
+        <p>Snip keeps your last 10 links in this browser only. Links are shortened by <a href="https://spoo.me" target="_blank" rel="noopener noreferrer">spoo.me<span class="visually-hidden"> (opens in a new tab)</span></a>.</p>
+      </footer>
+    </div>
+
+    <div id="announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
